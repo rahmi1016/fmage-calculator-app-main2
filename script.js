@@ -197,8 +197,11 @@ function getCalculate() {
   let restYear, restMonth, restDay;
   restYear = currentYear - year;
 
-  if (dayWarning.innerText !== "" || monthWarning.innerText !== "" || yearWarning.innerText !== "") {
+  if (day == "" && month == "" && year == "") {
     warningStyle();
+    dayWarning.innerText = "This field is required";
+      monthWarning.innerText = "This field is required";
+     yearWarning.innerText = "This field is required";
     resultDays.innerText = "--";
     resultMonths.innerText = "--";
     resultYears.innerText = "--";
