@@ -1,3 +1,6 @@
+let resultYears = document.getElementById("result-years");
+let resultMonths = document.getElementById("result-months");
+let resultDays = document.getElementById("result-days");
 function warningStyle() {
   document.getElementById("day-text").style.color = "hsl(0, 100%, 67%)";
   document.getElementById("month-text").style.color = "hsl(0, 100%, 67%)";
@@ -6,25 +9,6 @@ function warningStyle() {
   document.getElementById("month").style.border = "0.5px solid hsl(0, 100%, 67%)";
   document.getElementById("year").style.border = "0.5px solid hsl(0, 100%, 67%)";
 }
-
-function redBorder() {
-  document.getElementById("day").style.border = "0.5px solid hsl(0, 100%, 67%)";
-  document.getElementById("month").style.border = "0.5px solid hsl(0, 100%, 67%)";
-  document.getElementById("year").style.border = "0.5px solid hsl(0, 100%, 67%)";
-}
-
-function restartResult() {
-  resultDays.innerText = "--";
-  resultMonths.innerText = "--";
-  resultYears.innerText = "--";
-}
-
-function restartWarning() {
-  dayWarning.innerText = "";
-  monthWarning.innerText = "";
-  yearWarning.innerText = "";
-}
-
 function restartStyle() {
   document.getElementById("day-text").style.color = "hsl(0, 1%, 44%)";
   document.getElementById("month-text").style.color = "hsl(0, 1%, 44%)";
@@ -33,7 +17,11 @@ function restartStyle() {
   document.getElementById("month").style.border = "0.5px solid hsl(0, 1%, 44%)";
   document.getElementById("year").style.border = "0.5px solid hsl(0, 1%, 44%)";
 }
-
+function restartResult() {
+  resultDays.innerText = "--";
+  resultMonths.innerText = "--";
+  resultYears.innerText = "--";
+}
 function dayValidate() {
   let day = document.getElementById("day").value;
   let month = document.getElementById("month").value;
@@ -42,6 +30,7 @@ function dayValidate() {
   let monthWarning = document.getElementById("month-warning");
   let yearWarning = document.getElementById("year-warning");
   let daysInMonth = new Date(year, month, 0).getDate();
+
   if (day !== "" && month == "" && year == "") {
     warningStyle();
     restartResult();
@@ -52,17 +41,20 @@ function dayValidate() {
     } else {
       dayWarning.innerText = "";
     }
-  } else if (day !== "" && month !== "" && year == "") {
+  }
+  if (day !== "" && month !== "" && year == "") {
     warningStyle();
     dayWarning.innerText = "";
     monthWarning.innerText = "";
     yearWarning.innerText = "This field is required";
-  } else if (day !== "" && month == "" && year !== "") {
+  }
+  if (day !== "" && month == "" && year !== "") {
     warningStyle();
     dayWarning.innerText = "";
     monthWarning.innerText = "This field is required";
     yearWarning.innerText = "";
-  } else if (day !== "" && month !== "" && year !== "") {
+  }
+  if (day !== "" && month !== "" && year !== "") {
     if (day > daysInMonth || day <= 0 || day > 31) {
       warningStyle();
       dayWarning.innerText = "Must be a valid date";
@@ -84,6 +76,7 @@ function dayValidate() {
     }
   }
 }
+
 function monthValidate() {
   let day = document.getElementById("day").value;
   let month = document.getElementById("month").value;
@@ -113,9 +106,15 @@ function monthValidate() {
       yearWarning.innerText = "This field is required";
       monthWarning.innerText = "Must be a valid month";
     } else {
-      dayWarning.innerText = "";
-      yearWarning.innerText = "This field is required";
-      monthWarning.innerText = "";
+      if (day <= 0 || day > 31) {
+        dayWarning.innerText = "Must be a valid date";
+        yearWarning.innerText = "This field is required";
+        monthWarning.innerText = "";
+      } else {
+        dayWarning.innerText = "";
+        yearWarning.innerText = "This field is required";
+        monthWarning.innerText = "";
+      }
     }
   } else if (day !== "" && month !== "" && year !== "") {
     if (day > daysInMonth || day <= 0 || day > 31) {
@@ -141,6 +140,7 @@ function monthValidate() {
     }
   }
 }
+
 function yearValidate() {
   let day = document.getElementById("day").value;
   let month = document.getElementById("month").value;
