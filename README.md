@@ -43,7 +43,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [solution](https://github.com/rahmi1016/fmage-calculator-app-main2/tree/main)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [live site url](https://rahmi1016.github.io/fmage-calculator-app-main2/)
 
 ## My process
 
