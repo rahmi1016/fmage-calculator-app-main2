@@ -30,43 +30,50 @@ function dayValidate() {
   let monthWarning = document.getElementById("month-warning");
   let yearWarning = document.getElementById("year-warning");
   let daysInMonth = new Date(year, month, 0).getDate();
-
   if (day !== "" && month == "" && year == "") {
     warningStyle();
     restartResult();
     monthWarning.innerText = "This field is required";
     yearWarning.innerText = "This field is required";
     if (day <= 0 || day > 31) {
-      dayWarning.innerText = "Must be a valid date";
-    } else {
-      dayWarning.innerText = "";
-    }
-  }
-  if (day !== "" && month !== "" && year == "") {
-    warningStyle();
-    dayWarning.innerText = "";
-    monthWarning.innerText = "";
-    yearWarning.innerText = "This field is required";
-  }
-  if (day !== "" && month == "" && year !== "") {
-    warningStyle();
-    dayWarning.innerText = "";
-    monthWarning.innerText = "This field is required";
-    yearWarning.innerText = "";
-  }
-  if (day !== "" && month !== "" && year !== "") {
-    if (day > daysInMonth || day <= 0 || day > 31) {
       warningStyle();
       dayWarning.innerText = "Must be a valid date";
       monthWarning.innerText = "";
       yearWarning.innerText = "";
-    } else if (year > currentYear) {
+    } else {
       dayWarning.innerText = "";
       monthWarning.innerText = "";
-      yearWarning.innerText = "Must be in the past";
-    } else if (month < 0 || month > 12) {
+      yearWarning.innerText = "";
+    }
+  } else if (day !== "" && month !== "" && year == "") {
+    if (day <= 0 || day > 31) {
+      warningStyle();
+      dayWarning.innerText = "Must be a valid date";
+      monthWarning.innerText = "";
+      yearWarning.innerText = "This field is required";
+    } else {
+      warningStyle();
       dayWarning.innerText = "";
-      monthWarning.innerText = "Must be a valid month";
+      monthWarning.innerText = "";
+      yearWarning.innerText = "This field is required";
+    }
+  } else if (day !== "" && month == "" && year !== "") {
+    if (day <= 0 || day > 31) {
+      warningStyle();
+      dayWarning.innerText = "Must be a valid date";
+      monthWarning.innerText = "This field is required";
+      yearWarning.innerText = "";
+    } else {
+      warningStyle();
+      dayWarning.innerText = "";
+      monthWarning.innerText = "This field is required";
+      yearWarning.innerText = "";
+    }
+  } else if (month !== "" && year !== "" && day !== "") {
+    if (day > daysInMonth || day <= 0 || day > 31) {
+      warningStyle();
+      dayWarning.innerText = "Must be a valid date";
+      monthWarning.innerText = "";
       yearWarning.innerText = "";
     } else {
       restartStyle();
@@ -100,21 +107,31 @@ function monthValidate() {
     }
   } else if (day !== "" && month !== "" && year == "") {
     restartResult();
-    if (month < 0 || month > 12) {
+    if (day > daysInMonth || day <= 0 || day > 31) {
       warningStyle();
+      dayWarning.innerText = "Must be a valid date";
+      monthWarning.innerText = "";
+      yearWarning.innerText = "";
+    } else if (month < 0 || month > 12) {
       dayWarning.innerText = "";
       yearWarning.innerText = "This field is required";
       monthWarning.innerText = "Must be a valid month";
     } else {
-      if (day <= 0 || day > 31) {
-        dayWarning.innerText = "Must be a valid date";
-        yearWarning.innerText = "This field is required";
-        monthWarning.innerText = "";
-      } else {
-        dayWarning.innerText = "";
-        yearWarning.innerText = "This field is required";
-        monthWarning.innerText = "";
-      }
+      dayWarning.innerText = "";
+      yearWarning.innerText = "This field is required";
+      month;
+    }
+  } else if (day == "" && month !== "" && year !== "") {
+    if (month < 0 || month > 12) {
+      warningStyle();
+      dayWarning.innerText = "";
+      monthWarning.innerText = "Must be a valid month";
+      yearWarning.innerText = "";
+    } else {
+      restartStyle();
+      dayWarning.innerText = "";
+      monthWarning.innerText = "";
+      yearWarning.innerText = "";
     }
   } else if (day !== "" && month !== "" && year !== "") {
     if (day > daysInMonth || day <= 0 || day > 31) {
@@ -122,11 +139,6 @@ function monthValidate() {
       dayWarning.innerText = "Must be a valid date";
       monthWarning.innerText = "";
       yearWarning.innerText = "";
-    } else if (year > currentYear) {
-      warningStyle();
-      dayWarning.innerText = "";
-      monthWarning.innerText = "";
-      yearWarning.innerText = "Must be in the past";
     } else if (month < 0 || month > 12) {
       warningStyle();
       dayWarning.innerText = "";
@@ -151,6 +163,7 @@ function yearValidate() {
   let today = new Date();
   let currentYear = today.getFullYear();
   let daysInMonth = new Date(year, month, 0).getDate();
+
   if (day == "" && month == "" && year !== "") {
     warningStyle();
     restartResult();
@@ -158,7 +171,7 @@ function yearValidate() {
       dayWarning.innerText = "This field is required";
       monthWarning.innerText = "This field is required";
       yearWarning.innerText = "Must be in the past";
-    } else if (year < 0) {
+    } else if (year <= 0) {
       dayWarning.innerText = "This field is required";
       monthWarning.innerText = "This field is required";
       yearWarning.innerText = "Must be a valid year";
