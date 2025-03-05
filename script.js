@@ -219,6 +219,7 @@ function getCalculate() {
   let year = document.getElementById("year").value;
 
   let today = new Date();
+  let compareDate = new Date(year, month, day);
   let currentDay = today.getDate();
   let currentMonth = today.getMonth() + 1;
   let currentYear = today.getFullYear();
@@ -231,7 +232,6 @@ function getCalculate() {
   let resultDays = document.getElementById("result-days");
   let restYear, restMonth, restDay;
   restYear = currentYear - year;
-
   if (dayWarning.innerText !== "" || monthWarning.innerText !== "" || yearWarning.innerText !== "") {
     warningStyle();
     resultDays.innerText = "--";
@@ -246,42 +246,49 @@ function getCalculate() {
       resultDays.innerText = "--";
       resultMonths.innerText = "--";
       resultYears.innerText = "--";
-      console.log(resultDays.innerText);
-      console.log(resultMonths.innerText);
-      console.log(resultYears.innerText);
     } else {
-      if (currentMonth >= month) {
-        restMonth = currentMonth - month;
-        resultDays.innerText = restDay;
-        resultMonths.innerText = restMonth;
-        restYear = currentYear - year;
-        resultYears.innerText = restYear;
+      if (today < compareDate) {
+        warningStyle();
+        resultDays.innerText = "--";
+        resultMonths.innerText = "--";
+        resultYears.innerText = "--";
+        dayWarning.innerText = "Date must be in the past";
+        monthWarning.innerText = "Date must be in the past";
+        yearWarning.innerText = "Date must be in the past";
       } else {
-        restYear - 1;
-        restMonth = 12 + currentMonth - month;
-        resultDays.innerText = restDay;
-        resultMonths.innerText = restMonth;
-        restYear = currentYear - year;
-        resultYears.innerText = restYear;
-      }
-      if (currentDay >= day) {
-        restDay = currentDay - day;
-        resultDays.innerText = restDay;
-        resultMonths.innerText = restMonth;
-        resultYears.innerText = restYear;
-      } else {
-        restMonth - 1;
-        restDay = daysInMonth + currentDay - day;
-        resultDays.innerText = restDay;
-        resultMonths.innerText = restMonth;
-        resultYears.innerText = restYear;
-      }
-      if (currentMonth < 0) {
-        restMonth = 11;
-        restYear - 1;
-        resultDays.innerText = restDay;
-        resultMonths.innerText = restMonth;
-        resultYears.innerText = restYear;
+        if (currentMonth >= month) {
+          restMonth = currentMonth - month;
+          resultDays.innerText = restDay;
+          resultMonths.innerText = restMonth;
+          restYear = currentYear - year;
+          resultYears.innerText = restYear;
+        } else {
+          restYear - 1;
+          restMonth = 12 + currentMonth - month;
+          resultDays.innerText = restDay;
+          resultMonths.innerText = restMonth;
+          restYear = currentYear - year;
+          resultYears.innerText = restYear;
+        }
+        if (currentDay >= day) {
+          restDay = currentDay - day;
+          resultDays.innerText = restDay;
+          resultMonths.innerText = restMonth;
+          resultYears.innerText = restYear;
+        } else {
+          restMonth - 1;
+          restDay = daysInMonth + currentDay - day;
+          resultDays.innerText = restDay;
+          resultMonths.innerText = restMonth;
+          resultYears.innerText = restYear;
+        }
+        if (currentMonth < 0) {
+          restMonth = 11;
+          restYear - 1;
+          resultDays.innerText = restDay;
+          resultMonths.innerText = restMonth;
+          resultYears.innerText = restYear;
+        }
       }
     }
   }
